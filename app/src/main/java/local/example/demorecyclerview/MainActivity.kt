@@ -43,19 +43,28 @@ class MainActivity : AppCompatActivity() {
         val floatingActionButton = findViewById<FloatingActionButton>(R.id.floating_action_button)
         floatingActionButton.setOnClickListener {
             val wordListSize = wordLinkedList.size
-            wordLinkedList.addLast("some more word $wordListSize")
+            /* add a new word to the wordList */
+            wordLinkedList.addLast("some more phrase $wordListSize")
+            /* notify the adapter, that the data has changed */
             recyclerView!!.adapter!!.notifyItemInserted(wordListSize)
+            /* scroll to the bottom */
             recyclerView!!.smoothScrollToPosition(wordListSize)
         }
 
         populate()
+
+        /* create recycler view */
         recyclerView = findViewById(R.id.recycler_view)
+        /* create an adapter and supply the data to be displayed */
         wordListAdapter = WordListAdapter(this, wordLinkedList)
+        /* connect the adapter with the recycler view */
         recyclerView!!.adapter = wordListAdapter
+        /* give the recycler view a default layout manager */
         recyclerView!!.layoutManager = LinearLayoutManager(this)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        /* inflate the menu; this adds items to the action bar if it is present */
         menuInflater.inflate(R.menu.menu_main, menu)
         return true
     }
@@ -69,7 +78,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun populate() {
         wordLinkedList.run {
-            addLast("let's start by writing a word")
+            addLast("let's start by writing a simple phrase")
         }
     }
 }
